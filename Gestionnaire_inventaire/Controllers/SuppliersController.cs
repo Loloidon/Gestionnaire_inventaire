@@ -61,7 +61,7 @@ namespace Gestionnaire_inventaire.Controllers
         {
             var supplier = await _context.Suppliers.FindAsync(id);
 
-            if(supplier != null)
+            if(supplier == null)
             {
                 NotFound();
             }

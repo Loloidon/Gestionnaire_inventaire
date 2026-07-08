@@ -21,7 +21,11 @@ namespace Gestionnaire_inventaire.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+            
+            return await _context.Products
+                .Include(p=>p.Category)
+                .Include(p=>p.Supplier)
+                .ToListAsync();
         }
         [HttpPost]
         public async Task<ActionResult> CreateProduct(Product product)
@@ -34,13 +38,15 @@ namespace Gestionnaire_inventaire.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> GetProduct(int id)
         {
-           var product = await _context.Products.FindAsync(id);
-           if(product != null)
+            var product = await _context.Products.Include(p => p.Category)
+                                                 .Include(p => p.Supplier)
+                                                 .FirstOrDefaultAsync(p=>p.Id == id);
+           if(product == null)
             {
-             return Ok(product);
+             return NotFound();
 
             }
-            return NotFound();
+             return Ok(product);
             
         }
         [HttpPut("{id}")]
