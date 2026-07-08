@@ -7,12 +7,12 @@ namespace Gestionnaire_inventaire.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class SupplierController:ControllerBase
+    public class SuppliersController:ControllerBase
     {
 
         private readonly InventoryContext _context;
 
-        public SupplierController(InventoryContext context)
+        public SuppliersController(InventoryContext context)
         {
             _context = context;
         }
@@ -20,6 +20,12 @@ namespace Gestionnaire_inventaire.Controllers
         public async Task<ActionResult<IEnumerable<Supplier>>> GetSuppliers()
         {
             return await _context.Suppliers.ToListAsync();
+        }
+        [HttpPost]
+        public async Task<ActionResult> CreateSupplier(Supplier supplier)
+        {
+            await _context.Suppliers.AddAsync(supplier);
+
         }
     }
 }

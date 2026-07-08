@@ -21,5 +21,12 @@ namespace Gestionnaire_inventaire.Controllers
         {
             return await _context.Products.ToListAsync();
         }
+        [HttpPost]
+        public async Task<ActionResult> CreateProduct(Product product)
+        {
+            _context.Add(product);
+            await _context.SaveChangesAsync();
+            return Ok(product);
+        }
     }
 }
