@@ -56,5 +56,18 @@ namespace Gestionnaire_inventaire.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteSupplier(int id)
+        {
+            var supplier = await _context.Suppliers.FindAsync(id);
+
+            if(supplier != null)
+            {
+                NotFound();
+            }
+            _context.Remove(supplier);
+            _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
