@@ -57,7 +57,18 @@ namespace Gestionnaire_inventaire.Controllers
 
             return NoContent();
         }
-
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCategory(int id)
+        {
+            var category= await _context.Categories.FindAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            _context.Remove(category);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
     
 }
