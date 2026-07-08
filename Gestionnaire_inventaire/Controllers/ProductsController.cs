@@ -46,7 +46,7 @@ namespace Gestionnaire_inventaire.Controllers
         public async Task<ActionResult> UpdateProduct(int id, Product updateProduct)
         {
             var product = await _context.Products.FindAsync(id);
-            if(product != null)
+            if(product == null)
             {
                 return NotFound();
             }
@@ -54,8 +54,7 @@ namespace Gestionnaire_inventaire.Controllers
             product.Description = updateProduct.Description;
             product.Price= updateProduct.Price;
             product.StockQuantity=updateProduct.StockQuantity;
-            product.CategoryId = updateProduct.CategoryId;
-            product.SupplierId = updateProduct.SupplierId;
+            
 
             await _context.SaveChangesAsync();
 
