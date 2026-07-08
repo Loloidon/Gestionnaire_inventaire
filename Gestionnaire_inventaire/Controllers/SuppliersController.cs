@@ -40,5 +40,21 @@ namespace Gestionnaire_inventaire.Controllers
             }
             return Ok(supplier);
         }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateSupplier(int id, Supplier updateSupplier)
+        {
+            var supplier = await _context.Suppliers.FindAsync(id);
+
+            if (supplier == null)
+            {
+                return NotFound();
+            }
+            supplier.CompanyName = updateSupplier.CompanyName;
+            supplier.Email = updateSupplier.Email;
+            supplier.Phone = updateSupplier.Phone;
+
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

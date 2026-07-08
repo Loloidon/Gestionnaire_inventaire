@@ -42,7 +42,22 @@ namespace Gestionnaire_inventaire.Controllers
             return Ok(category);
 
             }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdatedCategory(int id, Category updateCategory)
+        {
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            category.Name = updateCategory.Name;
+
+            await _context.SaveChangesAsync();
             
+
+            return NoContent();
+        }
+
     }
     
 }

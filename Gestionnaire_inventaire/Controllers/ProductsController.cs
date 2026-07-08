@@ -42,5 +42,24 @@ namespace Gestionnaire_inventaire.Controllers
             return NotFound();
             
         }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateProduct(int id, Product updateProduct)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if(product != null)
+            {
+                return NotFound();
+            }
+            product.Name = updateProduct.Name;
+            product.Description = updateProduct.Description;
+            product.Price= updateProduct.Price;
+            product.StockQuantity=updateProduct.StockQuantity;
+            product.CategoryId = updateProduct.CategoryId;
+            product.SupplierId = updateProduct.SupplierId;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
