@@ -29,5 +29,16 @@ namespace Gestionnaire_inventaire.Controllers
             return Ok(supplier);
 
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetSupplier(int id)
+        {
+            var supplier = await _context.Suppliers.FindAsync(id);
+
+            if(supplier == null)
+            {
+                return NotFound();
+            }
+            return Ok(supplier);
+        }
     }
 }

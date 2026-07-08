@@ -11,26 +11,38 @@ namespace Gestionnaire_inventaire.Controllers
     [Route("api/[controller]")]
     public class CategoriesController: ControllerBase
     {
-    private readonly InventoryContext _context;
-    public CategoriesController(InventoryContext context)
-        {
-            _context = context;
-        }
+        private readonly InventoryContext _context;
+        public CategoriesController(InventoryContext context)
+            {
+                _context = context;
+            }
     
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Category>>> GetCategory()
-    {
-        return await _context.Categories.ToListAsync();
-    }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategory()
+            {
+                return await _context.Categories.ToListAsync();
+            }
         [HttpPost]
         public async Task<ActionResult> CreateCategories(Category category)
-        {
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-            return Ok(category);
-        }
+            {
+                _context.Categories.Add(category);
+                await _context.SaveChangesAsync();
+                return Ok(category);
+            }
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetCategories(int id)
+            {
+            var category = await _context.Categories.FindAsync(id);
             
+            if(category == null)
+            {
+                return NotFound();
+            }
 
+            return Ok(category);
+
+            }
+            
     }
     
 }

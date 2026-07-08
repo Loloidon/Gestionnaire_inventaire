@@ -2,6 +2,7 @@
 using Gestionnaire_inventaire.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace Gestionnaire_inventaire.Controllers
 {
@@ -24,9 +25,22 @@ namespace Gestionnaire_inventaire.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateProduct(Product product)
         {
-            _context.Add(product);
+            _context.Products.Add(product);
             await _context.SaveChangesAsync();
             return Ok(product);
+
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetProduct(int id)
+        {
+           var product = await _context.Products.FindAsync(id);
+           if(product != null)
+            {
+             return Ok(product);
+
+            }
+            return NotFound();
+            
         }
     }
 }
