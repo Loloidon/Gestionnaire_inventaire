@@ -24,7 +24,9 @@ namespace Gestionnaire_inventaire.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateSupplier(Supplier supplier)
         {
+            _context.Suppliers.Add(supplier);
             await _context.Suppliers.AddAsync(supplier);
+            return Ok(supplier);
 
         }
     }
