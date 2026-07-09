@@ -1,5 +1,6 @@
 ﻿using Gestionnaire_inventaire.Data;
 using Gestionnaire_inventaire.Model;
+using Gestionnaire_inventaire.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
@@ -21,15 +22,23 @@ namespace Gestionnaire_inventaire.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            
+
             return await _context.Products
-                .Include(p=>p.Category)
-                .Include(p=>p.Supplier)
+                .Include(p => p.Category)
+                .Include(p => p.Supplier)
                 .ToListAsync();
         }
         [HttpPost]
-        public async Task<ActionResult> CreateProduct(Product product)
+        public async Task<ActionResult> CreateProduct(ProductDto productDto)
         {
+            var product = new Product { 
+                Name = productDto.Name,
+                Description = productDto.Description,
+                Price = productDto.Price,
+                StockQuantity = productDto.StockQuantity,
+                CategoryId = productDto.CategoryId,
+                SupplierId = productDto.SupplierId,
+                CreatedAt = DateTime.Now};
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
             return Ok(product);
@@ -50,17 +59,19 @@ namespace Gestionnaire_inventaire.Controllers
             
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateProduct(int id, Product updateProduct)
+        public async Task<ActionResult> UpdateProduct(int id,ProductDto productDto)
         {
             var product = await _context.Products.FindAsync(id);
             if(product == null)
             {
                 return NotFound();
             }
-            product.Name = updateProduct.Name;
-            product.Description = updateProduct.Description;
-            product.Price= updateProduct.Price;
-            product.StockQuantity=updateProduct.StockQuantity;
+            product.Name = productDto.Name;
+            product.Description = productDto.Description;
+            product.Price= productDto.Price;
+            product.StockQuantity=productDto.StockQuantity;
+            product.CategoryId = productDto.CategoryId;
+            product.SupplierId = productDto.SupplierId;
             
 
             await _context.SaveChangesAsync();
