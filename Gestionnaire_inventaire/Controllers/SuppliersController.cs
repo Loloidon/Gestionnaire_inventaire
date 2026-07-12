@@ -3,6 +3,7 @@ using Gestionnaire_inventaire.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
+using Gestionnaire_inventaire.DTO;
 namespace Gestionnaire_inventaire.Controllers
 {
     [ApiController]
@@ -22,8 +23,15 @@ namespace Gestionnaire_inventaire.Controllers
             return await _context.Suppliers.ToListAsync();
         }
         [HttpPost]
-        public async Task<ActionResult> CreateSupplier(Supplier supplier)
+        public async Task<ActionResult> CreateSupplier(SupplierDto supplierDto)
         {
+            var supplier = new Supplier
+            {
+                CompanyName = supplierDto.CompanyName,
+                Email = supplierDto.Email,
+                Phone = supplierDto.Phone,
+            };
+                
             _context.Suppliers.Add(supplier);
             await _context.Suppliers.AddAsync(supplier);
             return Ok(supplier);
@@ -41,7 +49,7 @@ namespace Gestionnaire_inventaire.Controllers
             return Ok(supplier);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateSupplier(int id, Supplier updateSupplier)
+        public async Task<ActionResult> UpdateSupplier(int id, SupplierDto supplierDto)
         {
             var supplier = await _context.Suppliers.FindAsync(id);
 
@@ -49,9 +57,9 @@ namespace Gestionnaire_inventaire.Controllers
             {
                 return NotFound();
             }
-            supplier.CompanyName = updateSupplier.CompanyName;
-            supplier.Email = updateSupplier.Email;
-            supplier.Phone = updateSupplier.Phone;
+            supplier.CompanyName = supplierDto.CompanyName;
+            supplier.Email = supplierDto.Email;
+            supplier.Phone = supplierDto.Phone;
 
             await _context.SaveChangesAsync();
             return NoContent();

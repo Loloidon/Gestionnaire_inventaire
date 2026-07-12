@@ -2,8 +2,10 @@
 using Gestionnaire_inventaire.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Gestionnaire_inventaire.DTO;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace Gestionnaire_inventaire.Controllers
 {
@@ -23,8 +25,12 @@ namespace Gestionnaire_inventaire.Controllers
                 return await _context.Categories.ToListAsync();
             }
         [HttpPost]
-        public async Task<ActionResult> CreateCategories(Category category)
+        public async Task<ActionResult> CreateCategories(CategoryDto categoryDto)
             {
+                var category = new Category 
+                {
+                    Name = categoryDto.Name,
+                };
                 _context.Categories.Add(category);
                 await _context.SaveChangesAsync();
                 return Ok(category);
@@ -43,14 +49,14 @@ namespace Gestionnaire_inventaire.Controllers
 
             }
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdatedCategory(int id, Category updateCategory)
+        public async Task<ActionResult> UpdatedCategory(int id, CategoryDto CategoryDto)
         {
             var category = await _context.Categories.FindAsync(id);
             if (category == null)
             {
                 return NotFound();
             }
-            category.Name = updateCategory.Name;
+            category.Name = CategoryDto.Name;
 
             await _context.SaveChangesAsync();
             
