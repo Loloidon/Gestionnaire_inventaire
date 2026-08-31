@@ -23,4 +23,11 @@ export class ProductList {
 
     });
   }
+  deleteProduct(id:number){
+    this.productService.deleteProduct(id).subscribe(()=>{
+      this.products.update(products=>
+        products.filter(product=>product.id !== id)
+      );
+    });
+  }
 }

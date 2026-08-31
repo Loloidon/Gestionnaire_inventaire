@@ -1,6 +1,6 @@
 export interface Supplier {
     Id:number;
-    CompanyName:string;
+    companyName:string;
     Email:string;
     Phone:number;
 }

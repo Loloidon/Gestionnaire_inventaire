@@ -1,6 +1,28 @@
 <h2>Liste des produits</h2>
 <p>Nombre : {{ products().length }}</p>
+<table>
+    <tr>
+      <th>Nom</th>
+      <th>Prix</th>
+      <th>Stock</th>
+      <th>Date de création</th>
+      <th>Catégorie</th>
+      <th>Nom du fournisseur</th>
+    </tr>
 @for (product of products(); track product.id){
-    <p>{{product.name}}</p>
+   
+    
+
+  <tr>
+    <td>{{product.name}}</td>
+    <td>{{product.price}}</td>
+    <td>{{product.stockQuantity}}</td>
+    <td>{{product.createdAt}}</td>
+    <td>{{product.category.name}}</td>
+    <td>{{product.supplier.companyName}}</td>
+    <td><button (click)="deleteProduct(product.id)">Supprimer</button></td>
+  </tr>
+
 }
+</table>
 
