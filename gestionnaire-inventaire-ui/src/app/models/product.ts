@@ -9,7 +9,7 @@ export interface Product {
     createdAt:Date;
     categoryId:number;
     category:Category;
-    cupplierId:number;
+    supplierId:number;
     supplier:Supplier;
 
 }

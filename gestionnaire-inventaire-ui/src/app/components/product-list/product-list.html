@@ -1,1 +1,6 @@
-<p>product-list works!</p>
+<h2>Liste des produits</h2>
+<p>Nombre : {{ products().length }}</p>
+@for (product of products(); track product.id){
+    <p>{{product.name}}</p>
+}
+

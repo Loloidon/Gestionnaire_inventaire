@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Product } from '../../models/product';
+import { ProductService } from '../../services/ProductService';
+import { signal } from '@angular/core';
+
 
 @Component({
   selector: 'app-product-list',
@@ -6,4 +10,17 @@ import { Component } from '@angular/core';
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })
-export class ProductList {}
+export class ProductList {
+  products = signal<Product[]>([]);
+  constructor(private productService:ProductService){
+    
+  }
+  ngOnInit(){
+    this.productService.getProducts().subscribe(products=>{
+      console.log("Réponse API :", products);
+      this.products.set(products);
+      console.log("LOCAL :", this.products);
+
+    });
+  }
+}
