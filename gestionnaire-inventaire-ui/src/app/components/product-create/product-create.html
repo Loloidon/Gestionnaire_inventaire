@@ -16,23 +16,26 @@
 
         <label for="category-select">Choisissez une catégorie:</label>
 
-        <select formControlName="categoryId">
-        <option value="">--Veuillez choisir une option--</option>
-        @for (category of categories(); track category.id) {
-
-            <option [value]="category.id">
-                {{category.name}}
-            </option>
-        }
-        
-        </select>
 
         <select formControlName="supplierId">
         <option value="">--Veuillez choisir une option--</option>
         @for (supplier of suppliers(); track supplier.id) {
 
-            <option [value]="supplier.id">
-                {{suppliers.name}}
+            <option [ngValue]="supplier.id">
+                {{supplier.companyName}}
+            </option>
+        }
+        
+        </select>
+
+        
+
+        <select formControlName="categoryId">
+        <option value="">--Veuillez choisir une option--</option>
+        @for (category of categories(); track category.id) {
+
+            <option [ngValue]="category.id">
+                {{category.name}}
             </option>
         }
         

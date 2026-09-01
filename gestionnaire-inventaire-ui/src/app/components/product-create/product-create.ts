@@ -5,6 +5,9 @@ import { FormControl,FormGroup,ReactiveFormsModule } from '@angular/forms';
 import { signal } from '@angular/core';
 import { Category } from '../../models/category';
 import { Supplier } from '../../models/supplier';
+import { CategoryService } from '../../services/category-service';
+import { SupplierService } from '../../services/supplier-service';
+
 @Component({
   selector: 'app-product-create',
   imports: [ReactiveFormsModule],
@@ -12,6 +15,7 @@ import { Supplier } from '../../models/supplier';
   styleUrl: './product-create.css',
 })
 export class ProductCreate {
+  
   suppliers=signal<Supplier[]>([]);  
   categories = signal<Category[]>([]);
   productForm= new FormGroup({
@@ -22,8 +26,24 @@ export class ProductCreate {
     categoryId: new FormControl(0),
     supplierId: new FormControl(0)
   });
-  constructor(private productService:ProductService)
+  constructor(private productService:ProductService, private categoryService : CategoryService, private supplierService:SupplierService)
   {
+     
+  }
+  ngOnInit()
+  {
+    this.categoryService.getCategories().subscribe(categories=>{
+      console.log("Réponse API :", categories);
+      this.categories.set(categories);
+      console.log("LOCAL :", this.categories);
+
+    });
+
+    this.supplierService.getSuppliers().subscribe(suppliers=>{
+      console.log("Réponse API :",suppliers);
+      this.suppliers.set(suppliers);
+      console.log("LOCAL:",this.suppliers);
+    })
   }
   createProduct()
   {
