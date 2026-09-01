@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Category } from '../../models/category';
 import { ProductCreate } from './product-create';
 
 describe('ProductCreate', () => {

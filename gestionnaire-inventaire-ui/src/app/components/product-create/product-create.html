@@ -1,18 +1,43 @@
 <h2>Ajouter un produit</h2>
 
-<form>
+<form [formGroup]="productForm" (ngSubmit)="createProduct()">
 
-        <label>Nom</label>
-        <input type="text">
+        <label for="name">Nom</label>
+        <input id="name" type="text" formControlName="name">
 
-        <label>Description</label>
-        <input type="text">
+        <label for="description">Description</label>
+        <input id="description"type="text" formControlName="description">
 
-        <label>Prix</label>
-        <input type="number">
+        <label for="price">Prix</label>
+        <input id="price"type="number" formControlName="price">
 
-        <label>Stock</label>
-        <input type="number">
+        <label for="stockQuantity">Stock</label>
+        <input id="stockQuantity"type="number" formControlName="stockQuantity">
+
+        <label for="category-select">Choisissez une catégorie:</label>
+
+        <select formControlName="categoryId">
+        <option value="">--Veuillez choisir une option--</option>
+        @for (category of categories(); track category.id) {
+
+            <option [value]="category.id">
+                {{category.name}}
+            </option>
+        }
+        
+        </select>
+
+        <select formControlName="supplierId">
+        <option value="">--Veuillez choisir une option--</option>
+        @for (supplier of suppliers(); track supplier.id) {
+
+            <option [value]="supplier.id">
+                {{suppliers.name}}
+            </option>
+        }
+        
+        </select>
+
 
         <button type="submit">Ajouter</button>
 
