@@ -1,6 +1,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ProductCreateDto } from '../models/product-create-dto';
 import { Product } from '../models/product';
 
 
@@ -28,9 +29,9 @@ export class ProductService {
         return this.http.delete(`${this.apiUrl}/${id}`);
 
     }
-    createProduct(product:Product)
+    createProduct(product:ProductCreateDto)
     {
-        return this.http.post<Product>(this.apiUrl,product);
+        return this.http.post<ProductCreateDto>(this.apiUrl,product);
 
     }
     putProduct(id:number,product:Product)

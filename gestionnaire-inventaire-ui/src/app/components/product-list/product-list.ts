@@ -27,6 +27,7 @@ export class ProductList {
     this.productService.deleteProduct(id).subscribe(()=>{
       this.products.update(products=>
         products.filter(product=>product.id !== id)
+        
       );
     });
   }
