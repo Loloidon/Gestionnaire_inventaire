@@ -38,7 +38,7 @@ namespace Gestionnaire_inventaire.Controllers
                 StockQuantity = productDto.StockQuantity,
                 CategoryId = productDto.CategoryId,
                 SupplierId = productDto.SupplierId,
-                CreatedAt = DateTime.Now};
+                CreatedAt = DateTime.UtcNow};
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
             return Ok(product);

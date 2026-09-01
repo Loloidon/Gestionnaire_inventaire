@@ -17,7 +17,7 @@ namespace Gestionnaire_inventaire.Model
         [Required]
         [Range(0,int.MaxValue)]
         public int StockQuantity { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public int CategoryId { get; set; }
         public Category Category { get; set; } = null!;
 
