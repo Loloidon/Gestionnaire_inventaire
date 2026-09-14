@@ -1,6 +1,6 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Supplier } from '../models/supplier';
 
 @Injectable({
@@ -19,11 +19,11 @@ export class SupplierService {
     }
     getSupplier(id:number)
     {
-        return this.http.get<Supplier[]>(`${this.apiUrl}/${id}`);
+        return this.http.get<Supplier>(`${this.apiUrl}/${id}`);
     }
     deleteSupplier(id:number)
     {
-        return this.http.get<Supplier[]>(`${this.apiUrl}/${id}`);
+        return this.http.delete<Supplier[]>(`${this.apiUrl}/${id}`);
     }
     putSupplier(id:number ,supplier:Supplier)
     {
