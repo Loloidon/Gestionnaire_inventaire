@@ -1,47 +1,58 @@
-<h2>Modifier un produit</h2>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionnaire d'inventaire</title>
+</head>
+<body>
+    <h2>Modifier un produit</h2>
+    
+    <form [formGroup]="productForm" (ngSubmit)="PutProduct()">
+    
+            <label for="name">Nom</label>
+            <input id="name" type="text" formControlName="name">
+    
+            <label for="description">Description</label>
+            <input id="description"type="text" formControlName="description">
+    
+            <label for="price">Prix</label>
+            <input id="price"type="number" formControlName="price">
+    
+            <label for="stockQuantity">Stock</label>
+            <input id="stockQuantity"type="number" formControlName="stockQuantity">
+    
+            <label for="category-select">Choisissez une catégorie:</label>
+    
+    
+            <select formControlName="supplierId">
+            <option value="">--Veuillez choisir une option--</option>
+            @for (supplier of suppliers(); track supplier.id) {
+    
+                <option [ngValue]="supplier.id">
+                    {{supplier.companyName}}
+                </option>
+            }
+            
+            </select>
+    
+            
+    
+            <select formControlName="categoryId">
+            <option value="">--Veuillez choisir une option--</option>
+            @for (category of categories(); track category.id) {
+    
+                <option [ngValue]="category.id">
+                    {{category.name}}
+                </option>
+            }
+            
+            </select>
+    
+    
+            <button type="submit">Modifier</button>
+    
+    </form>
+    
+</body>
+</html>
 
-<form [formGroup]="productForm" (ngSubmit)="PutProduct()">
-
-        <label for="name">Nom</label>
-        <input id="name" type="text" formControlName="name">
-
-        <label for="description">Description</label>
-        <input id="description"type="text" formControlName="description">
-
-        <label for="price">Prix</label>
-        <input id="price"type="number" formControlName="price">
-
-        <label for="stockQuantity">Stock</label>
-        <input id="stockQuantity"type="number" formControlName="stockQuantity">
-
-        <label for="category-select">Choisissez une catégorie:</label>
-
-
-        <select formControlName="supplierId">
-        <option value="">--Veuillez choisir une option--</option>
-        @for (supplier of suppliers(); track supplier.id) {
-
-            <option [ngValue]="supplier.id">
-                {{supplier.companyName}}
-            </option>
-        }
-        
-        </select>
-
-        
-
-        <select formControlName="categoryId">
-        <option value="">--Veuillez choisir une option--</option>
-        @for (category of categories(); track category.id) {
-
-            <option [ngValue]="category.id">
-                {{category.name}}
-            </option>
-        }
-        
-        </select>
-
-
-        <button type="submit">Modifier</button>
-
-</form>
