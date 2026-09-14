@@ -1,1 +1,32 @@
-<p>category-list works!</p>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionnaire d'inventaire</title>
+  </head>
+  <body>
+  <h2>Liste des produits</h2>
+  <button routerLink="/categories/create">Ajouter un nouveau produit</button>
+  <p>Nombre : {{ category().length }}</p>
+  <table>
+      <tr>
+        <th>Nom</th>
+      </tr>
+  @for (category of category(); track category.id){
+     
+      
+  
+    <tr>
+      <td>{{category.name}}</td>
+      
+      <td><button (click)="deleteCategory(category.id)">Supprimer</button></td>
+      <td><button [routerLink]="['/products/edit', category.id]">Modifier</button></td>
+    </tr>
+  
+  }
+  </table>
+    
+</body>
+</html>
+
