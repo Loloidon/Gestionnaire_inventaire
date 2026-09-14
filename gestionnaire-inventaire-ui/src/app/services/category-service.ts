@@ -15,4 +15,16 @@ export class CategoryService {
     {
         return this.http.get<Category[]>(this.apiUrl);
     }
+    getCategory(id:number)
+    {
+        return this.http.get<Category[]>(`${this.apiUrl}/${id}}`);
+    }
+    deleteCategory(id:number)
+    {
+        return this.http.delete<Category[]>(`${this.apiUrl}/${id}`);
+    }
+    putCategory(id:number ,category:Category)
+    {
+        return this.http.put<Category[]>(`${this.apiUrl}/${id}`,category);
+    }
 }

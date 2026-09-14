@@ -17,4 +17,8 @@ export class SupplierService {
     {
         return this.http.get<Supplier[]>(this.apiUrl);
     }
+    getSupplier(id:number)
+    {
+        return this.http.get<Supplier[]>(`${this.apiUrl}/${id}`);
+    }
 }
