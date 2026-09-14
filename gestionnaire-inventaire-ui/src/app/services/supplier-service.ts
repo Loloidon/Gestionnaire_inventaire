@@ -21,4 +21,13 @@ export class SupplierService {
     {
         return this.http.get<Supplier[]>(`${this.apiUrl}/${id}`);
     }
+    deleteSupplier(id:number)
+    {
+        return this.http.get<Supplier[]>(`${this.apiUrl}/${id}`);
+    }
+    putSupplier(id:number ,supplier:Supplier)
+    {
+        return this.http.put<Supplier[]>(`${this.apiUrl}/${id}`,supplier);
+    }
+
 }
