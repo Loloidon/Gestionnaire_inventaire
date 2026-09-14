@@ -4,6 +4,7 @@ import { ProductService } from '../../services/ProductService';
 import { signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+
 @Component({
   selector: 'app-product-list',
   imports: [RouterLink],
